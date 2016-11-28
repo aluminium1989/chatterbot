@@ -1,10 +1,15 @@
 import sys, getopt, logging
 from telegram.ext import Updater
 from telegram.ext import CommandHandler
+from telegram.ext import MessageHandler, Filters
 
 
 def start(bot, update):
-    bot.sendMessage(chat_id=update.message.chat_id, text="I'm a bot, please talk to me!")
+    bot.sendMessage(chat_id=update.message.chat_id, text="Hello %s" % update.message.from_user.first_name)
+
+
+def echo(bot, update):
+    bot.sendMessage(chat_id=update.message.chat_id, text=update.message.text)
 
 
 def main(argv):
@@ -25,8 +30,16 @@ def main(argv):
     dispatcher = updater.dispatcher
 
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+
+    # listen start button
     start_handler = CommandHandler('start', start)
     dispatcher.add_handler(start_handler)
+
+    # listen messages
+    echo_handler = MessageHandler(Filters.text, echo)
+    dispatcher.add_handler(echo_handler)
+
+    # start listening messages
     updater.start_polling()
 
 

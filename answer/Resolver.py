@@ -10,8 +10,8 @@ class Model(object):
         self.bindEvents()
 
     def bindEvents(self):
-        self.dispatcher().add_handler(self.start)
-        self.dispatcher().add_handler(self.echo)
+        self.dispatcher().add_handler(CommandHandler('start', self.start))
+        self.dispatcher().add_handler(MessageHandler(Filters.text, self.echo))
 
     def startPolling(self):
         self.updater.start_polling()

@@ -30,6 +30,7 @@ def main(argv):
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
     updater = Updater(token)
+    updater.dispatcher
 
     answer = Resolver.Model(updater)
 

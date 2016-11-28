@@ -2,7 +2,7 @@ import sys, getopt, logging
 from telegram.ext import Updater
 from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
-
+from answer import Resolver
 
 def start(bot, update):
     bot.sendMessage(chat_id=update.message.chat_id, text="Hello %s" % update.message.from_user.first_name)
@@ -26,21 +26,23 @@ def main(argv):
         elif opt in ("-t", "--token"):
             token = arg
 
-    updater = Updater(token)
-    dispatcher = updater.dispatcher
-
+    # init logging
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
+    updater = Updater(token)
+
+    answer = Resolver.Model(updater)
+
     # listen start button
-    start_handler = CommandHandler('start', start)
-    dispatcher.add_handler(start_handler)
+    #start_handler = CommandHandler('start', start)
+    #dispatcher.add_handler(start_handler)
 
     # listen messages
-    echo_handler = MessageHandler(Filters.text, echo)
-    dispatcher.add_handler(echo_handler)
+    #echo_handler = MessageHandler(Filters.text, echo)
+    #dispatcher.add_handler(echo_handler)
 
     # start listening messages
-    updater.start_polling()
+    #updater.start_polling()
 
 
 if __name__ == "__main__":

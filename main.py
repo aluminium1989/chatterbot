@@ -1,7 +1,5 @@
 import sys, getopt, logging
 from telegram.ext import Updater
-from telegram.ext import CommandHandler
-from telegram.ext import MessageHandler, Filters
 from answer import Resolver
 
 def start(bot, update):
@@ -30,7 +28,6 @@ def main(argv):
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
     updater = Updater(token)
-    updater.dispatcher
 
     answer = Resolver.Model(updater)
 
